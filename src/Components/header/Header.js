@@ -26,7 +26,7 @@ export default function Header() {
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Button variant="contained" sx={{ borderRadius: "15px" }}>
+              <Button variant="contained" sx={{ borderRadius: "10px" }}>
                 Разместить объявление
               </Button>
             </Box>
