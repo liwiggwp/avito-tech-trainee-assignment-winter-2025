@@ -7,6 +7,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LogoAvitoImage from "../../Assets/logo-avito.png";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import SearchBar from "../search/SearchBar";
+import { Link } from "react-router-dom";
 
 export default function SubHeader() {
   return (
@@ -14,11 +15,13 @@ export default function SubHeader() {
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={LogoAvitoImage}
-              alt="Avito"
-              style={{ height: 32, marginRight: 8 }}
-            />
+            <Link to="/">
+              <img
+                src={LogoAvitoImage}
+                alt="Avito"
+                style={{ height: 32, marginRight: 8 }}
+              />
+            </Link>
             <Button
               variant="contained"
               sx={{
