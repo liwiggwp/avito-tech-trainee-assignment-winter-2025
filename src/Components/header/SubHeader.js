@@ -9,7 +9,7 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import SearchBar from "../search/SearchBar";
 import { Link } from "react-router-dom";
 
-export default function SubHeader() {
+export default function SubHeader({onSearchChange}) {
   return (
     <Box sx={{ flexGrow: 1, mt: 8, boxShadow: 1, py: 1 }}>
       <Container maxWidth="lg">
@@ -37,7 +37,7 @@ export default function SubHeader() {
             </Button>
           </Box>
           <Box sx={{ flexGrow: 1, mx: 2 }}>
-            <SearchBar />
+            <SearchBar onSearchChange={onSearchChange} />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <LocationOnIcon sx={{ color: "black" }} />

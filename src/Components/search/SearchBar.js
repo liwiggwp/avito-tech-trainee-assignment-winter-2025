@@ -3,7 +3,23 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearchChange }) {
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchClick = (value) => {
+    onSearchChange(value);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleSearchClick(event.target.value);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -22,6 +38,9 @@ export default function SearchBar() {
         <TextField
           variant="standard"
           placeholder="Поиск по объявлениям"
+          value={searchTerm}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
           sx={{
             flex: 1,
             borderRadius: 0,
@@ -32,6 +51,7 @@ export default function SearchBar() {
         />
         <Button
           variant="contained"
+          onClick={() => handleSearchClick(searchTerm)}
           sx={{
             backgroundColor: "#0095FF",
             borderRadius: 0,
