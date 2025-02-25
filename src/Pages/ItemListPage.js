@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import Header from "../Components/header/Header";
 import SubHeader from "../Components/header/SubHeader";
-import ItemList from "../Components/card/ItemList";
+import ItemListCategory from "../Components/card/ItemListCategory";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Api from "../Services/ApiServices";
@@ -32,9 +32,9 @@ function ItemListPage() {
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <h1>Item List</h1>
-        <ItemList items={filteredItems} />
+        <ItemListCategory items={filteredItems} />
       </Container>
     </>
   );
