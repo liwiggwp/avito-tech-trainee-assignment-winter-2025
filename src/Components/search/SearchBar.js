@@ -10,13 +10,13 @@ export default function SearchBar({ onSearchChange }) {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearchClick = (value) => {
-    onSearchChange(value);
+  const handleSearchClick = () => {
+    onSearchChange(searchTerm);
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearchClick(event.target.value);
+      handleSearchClick();
     }
   };
 
@@ -51,7 +51,7 @@ export default function SearchBar({ onSearchChange }) {
         />
         <Button
           variant="contained"
-          onClick={() => handleSearchClick(searchTerm)}
+          onClick={handleSearchClick}
           sx={{
             backgroundColor: "#0095FF",
             borderRadius: 0,

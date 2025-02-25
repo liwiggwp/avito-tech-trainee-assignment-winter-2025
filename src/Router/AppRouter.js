@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import * as Router from "./RouteNames";
 import Home from "../Pages/Home";
 import Item from "../Pages/Item";
+import ItemListPage from "../Pages/ItemListPage";
 
 function AppRouter() {
   return (
@@ -12,6 +13,7 @@ function AppRouter() {
         path={Router.ITEM + Router.ID}
         element={<Item />}
       />
+       <Route path={Router.LIST} element={<ItemListPage />} />
     </Routes>
   );
 }
