@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -8,8 +8,26 @@ import LogoAvitoImage from "../../Assets/logo-avito.png";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import SearchBar from "../search/SearchBar";
 import { Link } from "react-router-dom";
+import Api from "../../Services/ApiServices";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
-export default function SubHeader({onSearchChange}) {
+export default function SubHeader({ onSearchChange }) {
+  const { getCategories, categories } = Api();
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box sx={{ flexGrow: 1, mt: 8, boxShadow: 1, py: 1 }}>
       <Container maxWidth="lg">
@@ -32,9 +50,29 @@ export default function SubHeader({onSearchChange}) {
                 height: "40px",
               }}
               startIcon={<ManageSearchIcon />}
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
             >
               Все категории
             </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              {categories.map((category) => (
+                <MenuItem onClick={handleClose}>
+                  {category}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, mx: 2 }}>
             <SearchBar onSearchChange={onSearchChange} />
