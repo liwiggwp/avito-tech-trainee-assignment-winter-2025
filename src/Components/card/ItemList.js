@@ -25,11 +25,15 @@ const ItemList = ({ items }) => {
                 <Typography variant="body1" fontWeight="bold">
                   {item.name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {item.price || item.cost}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body2" >
                   {item.location}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{ fontStyle: "italic" }}
+                >
+                  {item.type}
                 </Typography>
               </CardContent>
             </Card>
