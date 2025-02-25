@@ -12,7 +12,7 @@ import Api from "../../Services/ApiServices";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-export default function SubHeader({ onSearchChange }) {
+export default function SubHeader({ onSearchChange, onCategoryChange }) {
   const { getCategories, categories } = Api();
 
   useEffect(() => {
@@ -27,7 +27,10 @@ export default function SubHeader({ onSearchChange }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleCategorySelect = (category) => {
+    onCategoryChange(category);
+    handleClose();
+  };
   return (
     <Box sx={{ flexGrow: 1, mt: 8, boxShadow: 1, py: 1 }}>
       <Container maxWidth="lg">
@@ -68,7 +71,7 @@ export default function SubHeader({ onSearchChange }) {
               }}
             >
               {categories.map((category) => (
-                <MenuItem onClick={handleClose}>
+                <MenuItem key={category} onClick={() => handleCategorySelect(category)}>
                   {category}
                 </MenuItem>
               ))}

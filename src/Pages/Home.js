@@ -8,6 +8,7 @@ import { Container } from "@mui/material";
 function Home() {
   const { getItems, items } = Api();
   const [filteredItems, setFilteredItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     getItems();
@@ -24,10 +25,16 @@ function Home() {
     setFilteredItems(filtered);
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    const filtered = items.filter((item) => item.type === category);
+    setFilteredItems(filtered);
+  };
+
   return (
     <>
       <Header />
-      <SubHeader onSearchChange={handleSearchChange} />
+      <SubHeader onSearchChange={handleSearchChange} onCategoryChange={handleCategoryChange}/>
       <Container maxWidth="lg">
         <h1>Home</h1>
         <ItemList items={filteredItems} />
