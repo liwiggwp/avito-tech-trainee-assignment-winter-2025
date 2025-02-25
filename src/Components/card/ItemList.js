@@ -12,7 +12,7 @@ const ItemList = ({ items }) => {
               <CardMedia
                 component="img"
                 height="140"
-                image={item.image}
+                image={item.imageUrl}
                 alt={item.name}
               />
               <CardContent

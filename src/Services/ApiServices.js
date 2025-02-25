@@ -28,7 +28,6 @@ export default function Api() {
   const getCategories = async () => {
     try {
       const response = await http.get(`/categories`);
-      console.log(response.data);
       setCategories(response.data);
     } catch (error) {
       console.log(error);
