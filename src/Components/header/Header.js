@@ -2,12 +2,20 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Menu, MenuItem } from "@mui/material";
 
-export default function Header({onAuthOpen}) {
-  
+export default function Header({ onAuthOpen, user, onLogout }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ backgroundColor: "#161616" }}>
@@ -26,14 +34,33 @@ export default function Header({onAuthOpen}) {
                 Avito tech
               </Typography>
             </Box>
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Typography
-                color="white"
-                sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={onAuthOpen}
-              >
-                Вход и регистрация
-              </Typography>
+              {user ? (
+                <>
+                  <Typography
+                    sx={{ cursor: "pointer" }}
+                    onClick={handleMenuOpen}
+                  >
+                    {user.email}
+                  </Typography>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={anchorEl}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem onClick={onLogout}>Выйти</MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Typography
+                  color="white"
+                  sx={{ textDecoration: "none", cursor: "pointer" }}
+                  onClick={onAuthOpen}
+                >
+                  Вход и регистрация
+                </Typography>
+              )}
               <Button variant="contained" sx={{ borderRadius: "10px" }}>
                 Разместить объявление
               </Button>

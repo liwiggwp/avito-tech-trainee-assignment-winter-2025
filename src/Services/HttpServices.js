@@ -1,10 +1,32 @@
-import axios from 'axios';
+import axios from "axios";
+
+const API_BASE_URL = "http://localhost:5000";
 
 const httpService = () => {
-  const http = {
+  const token = localStorage.getItem("token");
+
+  const http = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+
+  return {
     get: async (url) => {
       try {
-        const response = await axios.get(`http://localhost:5000${url}`);
+        const response = await http.get(url);
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+
+    post: async (url, data) => {
+      try {
+        const response = await http.post(url, data);
         return response;
       } catch (error) {
         console.error(error);
@@ -12,8 +34,6 @@ const httpService = () => {
       }
     },
   };
-
-  return { http };
 };
 
 export default httpService;

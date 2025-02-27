@@ -9,13 +9,13 @@ import RegisterForm from "../Components/auth/RegisterForm";
 import LoginForm from "../Components/auth/LoginForm";
 
 function Home() {
-  const { getItems, items } = Api();
+  const {token, getItems, items, logout } = Api();
   const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [authOpen, setAuthOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
-
+  const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     getItems();
   }, []);
@@ -70,9 +70,19 @@ function Home() {
     navigate(location.pathname);
   };
 
+  const handleLoginSuccess = (userData) => {
+    setAuthOpen(false);
+  };
+
+  const handleLogout = () => {
+    if (token !== undefined) {
+      logout();
+    }
+  };
+
   return (
     <>
-      <Header onAuthOpen={handleAuthOpen} />
+      <Header onAuthOpen={handleAuthOpen} user={user} onLogout={handleLogout} />
       <SubHeader
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
@@ -81,8 +91,17 @@ function Home() {
         <h1>Home</h1>
         <ItemList items={filteredItems} />
       </Container>
-      <LoginForm open={authOpen} onClose={handleAuthClose} onRegisterOpen={handleRegisterOpen} />
-      <RegisterForm open={registerOpen} onClose={handleRegisterClose} onLoginOpen={handleAuthOpen} />
+      <LoginForm
+        open={authOpen}
+        onClose={handleAuthClose}
+        onRegisterOpen={handleRegisterOpen}
+        onLoginSuccess={handleLoginSuccess}
+      />
+      <RegisterForm
+        open={registerOpen}
+        onClose={handleRegisterClose}
+        onLoginOpen={handleAuthOpen}
+      />
     </>
   );
 }

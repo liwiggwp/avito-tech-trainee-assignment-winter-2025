@@ -9,17 +9,27 @@ import {
   IconButton,
   TextField,
   Typography,
+  Alert,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Api from "../../Services/ApiServices";
 
-const LoginForm = ({ open, onClose, onRegisterOpen }) => {
+const LoginForm = ({ open, onClose, onRegisterOpen, onLoginSuccess }) => {
+  const { login } = Api();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log("email", email);
-    console.log("password", password);
+    setError(null);
+    try {
+      const response = await login(email, password);
+      onLoginSuccess({ email });
+      onClose();
+    } catch (err) {
+      setError("Ошибка входа: проверьте почту и пароль.");
+    }
   };
 
   return (
@@ -33,7 +43,11 @@ const LoginForm = ({ open, onClose, onRegisterOpen }) => {
             <CloseIcon />
           </IconButton>
         </Box>
-
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
         <Box mt={2} component="form" onSubmit={handleLogin}>
           <TextField
             fullWidth
