@@ -41,7 +41,7 @@ function Item() {
               <CardMedia
                 component="img"
                 height="400"
-                image={item.image || "default.jpg"}
+                image={item.imageUrl || "default.jpg"}
                 alt={item.name}
               />
             </Card>

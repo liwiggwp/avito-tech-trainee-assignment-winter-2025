@@ -68,7 +68,7 @@ export default function useApi() {
     try {
       const response = await post("/auth/login", { email, password });
       saveToken(response.data.token);
-      saveUser({ email });
+      saveUser(response.data.user);
       return response.data;
     } catch (error) {
       console.error(error);
