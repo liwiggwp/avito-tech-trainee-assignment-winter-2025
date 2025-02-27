@@ -74,6 +74,12 @@ function Home() {
     setAuthOpen(false);
   };
 
+  const handleRegisterSuccess = () => {
+    setRegisterOpen(false);
+    setAuthOpen(true);
+    navigate("#login");
+  };
+
   const handleLogout = () => {
     if (token !== undefined) {
       logout();
@@ -101,7 +107,7 @@ function Home() {
         open={registerOpen}
         onClose={handleRegisterClose}
         onLoginOpen={handleAuthOpen}
-      />
+     onRegisterSuccess={handleRegisterSuccess} />
     </>
   );
 }

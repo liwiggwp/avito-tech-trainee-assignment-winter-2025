@@ -9,17 +9,26 @@ import {
   Checkbox,
   Button,
   Typography,
+  Alert,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Api from "../../Services/ApiServices";
 
-const RegisterForm = ({ open, onClose, onLoginOpen }) => {
+const RegisterForm = ({ open, onClose, onLoginOpen, onRegisterSuccess }) => {
+  const { register } = Api();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const handleRegister = async (event) => {
     event.preventDefault();
-    console.log("email", email);
-    console.log("password", password);
+    setError(null);
+    try {
+      const response = await register(email, password);
+      onRegisterSuccess();
+    } catch (err) {
+      setError("Ошибка: проверьте почту и пароль.");
+    }
   };
 
   return (
@@ -33,6 +42,11 @@ const RegisterForm = ({ open, onClose, onLoginOpen }) => {
             <CloseIcon />
           </IconButton>
         </Box>
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
         <Box mt={2} component="form" onSubmit={handleRegister}>
           <TextField
             fullWidth
