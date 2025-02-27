@@ -4,12 +4,17 @@ import React, { useEffect, useState } from "react";
 import Api from "../Services/ApiServices";
 import ItemList from "../Components/card/ItemList";
 import { Container } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import RegisterForm from "../Components/auth/RegisterForm";
+import LoginForm from "../Components/auth/LoginForm";
 
 function Home() {
   const { getItems, items } = Api();
   const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [authOpen, setAuthOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
 
   useEffect(() => {
     getItems();
@@ -18,6 +23,16 @@ function Home() {
   useEffect(() => {
     setFilteredItems(items);
   }, [items]);
+
+  useEffect(() => {
+    if (location.hash === "#login") {
+      setAuthOpen(true);
+      setRegisterOpen(false);
+    } else if (location.hash === "#register") {
+      setRegisterOpen(true);
+      setAuthOpen(false);
+    }
+  }, [location]);
 
   const handleSearchChange = (searchTerm) => {
     const filtered = items.filter((item) =>
@@ -33,14 +48,41 @@ function Home() {
     navigate("/list", { state: { filteredItems: filtered } });
   };
 
+  const handleAuthOpen = () => {
+    setAuthOpen(true);
+    setRegisterOpen(false);
+    navigate("#login");
+  };
+
+  const handleAuthClose = () => {
+    setAuthOpen(false);
+    navigate(location.pathname);
+  };
+
+  const handleRegisterOpen = () => {
+    setRegisterOpen(true);
+    setAuthOpen(false);
+    navigate("#register");
+  };
+
+  const handleRegisterClose = () => {
+    setRegisterOpen(false);
+    navigate(location.pathname);
+  };
+
   return (
     <>
-      <Header />
-      <SubHeader onSearchChange={handleSearchChange} onCategoryChange={handleCategoryChange} />
+      <Header onAuthOpen={handleAuthOpen} />
+      <SubHeader
+        onSearchChange={handleSearchChange}
+        onCategoryChange={handleCategoryChange}
+      />
       <Container maxWidth="lg">
         <h1>Home</h1>
         <ItemList items={filteredItems} />
       </Container>
+      <LoginForm open={authOpen} onClose={handleAuthClose} onRegisterOpen={handleRegisterOpen} />
+      <RegisterForm open={registerOpen} onClose={handleRegisterClose} onLoginOpen={handleAuthOpen} />
     </>
   );
 }
