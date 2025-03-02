@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Button, Container, Menu, MenuItem } from "@mui/material";
 
-export default function Header({ onAuthOpen, user, onLogout }) {
+export default function Header({ onAuthOpen, onFormOpen, user, onLogout }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuOpen = (event) => {
@@ -61,7 +61,11 @@ export default function Header({ onAuthOpen, user, onLogout }) {
                   Вход и регистрация
                 </Typography>
               )}
-              <Button variant="contained" sx={{ borderRadius: "10px" }}>
+              <Button
+                variant="contained"
+                sx={{ borderRadius: "10px" }}
+                onClick={onFormOpen}
+              >
                 Разместить объявление
               </Button>
             </Box>

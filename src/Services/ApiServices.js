@@ -64,6 +64,16 @@ export default function useApi() {
     }
   };
 
+  const postItem = async (data) => {
+    try {
+      const response = await post("/items", data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   const login = async (email, password) => {
     try {
       const response = await post("/auth/login", { email, password });
@@ -101,6 +111,7 @@ export default function useApi() {
     getUserRequest,
     user,
     getToken,
+    postItem,
     getItems,
     getItemById,
     getCategories,

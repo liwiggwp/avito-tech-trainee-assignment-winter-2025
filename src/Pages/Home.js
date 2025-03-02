@@ -7,15 +7,18 @@ import { Container } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import RegisterForm from "../Components/auth/RegisterForm";
 import LoginForm from "../Components/auth/LoginForm";
+import MultiStepForm from "../Components/MultiStepForm";
 
 function Home() {
-  const {token, getItems, items, logout } = Api();
+  const { token, getItems, items, logout } = Api();
   const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [authOpen, setAuthOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+  const [formOpen, setFormOpen] = useState(false);
+
   useEffect(() => {
     getItems();
   }, []);
@@ -80,6 +83,15 @@ function Home() {
     navigate("#login");
   };
 
+  const handleFormOpen = () => {
+    setFormOpen(true);
+    navigate("#create");
+  };
+
+  const handleFormClose = () => {
+    setFormOpen(false);
+    navigate(location.pathname);
+  };
   const handleLogout = () => {
     if (token !== undefined) {
       logout();
@@ -88,7 +100,12 @@ function Home() {
 
   return (
     <>
-      <Header onAuthOpen={handleAuthOpen} user={user} onLogout={handleLogout} />
+      <Header
+        onAuthOpen={handleAuthOpen}
+        onFormOpen={handleFormOpen}
+        user={user}
+        onLogout={handleLogout}
+      />
       <SubHeader
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
@@ -107,7 +124,10 @@ function Home() {
         open={registerOpen}
         onClose={handleRegisterClose}
         onLoginOpen={handleAuthOpen}
-     onRegisterSuccess={handleRegisterSuccess} />
+        onRegisterSuccess={handleRegisterSuccess}
+      />
+
+      <MultiStepForm open={formOpen} onClose={handleFormClose} />
     </>
   );
 }
