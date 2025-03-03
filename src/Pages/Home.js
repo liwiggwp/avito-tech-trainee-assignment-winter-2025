@@ -34,6 +34,9 @@ function Home() {
     } else if (location.hash === "#register") {
       setRegisterOpen(true);
       setAuthOpen(false);
+    } else {
+      setAuthOpen(false);
+      setRegisterOpen(false);
     }
   }, [location]);
 
@@ -73,8 +76,9 @@ function Home() {
     navigate(location.pathname);
   };
 
-  const handleLoginSuccess = (userData) => {
+  const handleLoginSuccess = () => {
     setAuthOpen(false);
+    navigate(location.pathname); 
   };
 
   const handleRegisterSuccess = () => {
@@ -84,14 +88,19 @@ function Home() {
   };
 
   const handleFormOpen = () => {
-    setFormOpen(true);
-    navigate("#create");
+    if (user) {
+      setFormOpen(true);
+      navigate("#create");
+    } else {
+      handleAuthOpen();
+    }
   };
 
   const handleFormClose = () => {
     setFormOpen(false);
     navigate(location.pathname);
   };
+
   const handleLogout = () => {
     if (token !== undefined) {
       logout();
@@ -126,8 +135,10 @@ function Home() {
         onLoginOpen={handleAuthOpen}
         onRegisterSuccess={handleRegisterSuccess}
       />
-
-      <MultiStepForm open={formOpen} onClose={handleFormClose} />
+      <MultiStepForm
+        open={formOpen}
+        onClose={handleFormClose}
+      />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -28,8 +28,19 @@ const MultiStepForm = ({ open, onClose }) => {
     imageUrl: "",
     additional: {},
   });
+  const { postItem, getUserRequest } = Api();
 
-  const { postItem } = Api();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const currentUser = await getUserRequest();
+      if (!currentUser) {
+        onClose();
+      }
+    };
+    if (open) {
+      fetchUser();
+    }
+  }, [open, onClose, getUserRequest]);
 
   const handleNext = () => {
     setActiveStep((prev) => prev + 1);
@@ -99,11 +110,11 @@ const MultiStepForm = ({ open, onClose }) => {
       payload.cost = parseFloat(payload.cost);
     }
 
-    console.log("Данные:", payload);
+    // console.log("Данные:", payload);
 
     try {
       const response = await postItem(payload);
-      console.log("Успешно", response);
+      // console.log("Успешно", response);
       setFormData({
         name: "",
         description: "",
