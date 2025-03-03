@@ -126,7 +126,7 @@ function Item() {
             </Box>
             <Box marginTop={2}>
               <Typography variant="h6" fontWeight="bold">
-                Пользователь
+                {item.userEmail}
               </Typography>
               <Box display="flex" alignItems="center" gap={1}>
                 <Typography variant="body2">5</Typography>
