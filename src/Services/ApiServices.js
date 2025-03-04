@@ -2,7 +2,7 @@ import httpService from "./HttpServices";
 import { useState, useEffect } from "react";
 
 export default function useApi() {
-  const { get, post, put } = httpService();
+  const { get, post, put, del } = httpService();
   const [items, setItems] = useState([]);
   const [item, setItem] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -84,6 +84,16 @@ export default function useApi() {
     }
   };
 
+  const deleteItem = async (id) => {
+    try {
+      const response = await del(`/items/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   const login = async (email, password) => {
     try {
       const response = await post("/auth/login", { email, password });
@@ -123,6 +133,7 @@ export default function useApi() {
     getToken,
     postItem,
     updateItem,
+    deleteItem,
     getItems,
     getItemById,
     getCategories,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -17,7 +17,8 @@ import MultiStepForm from "../Components/MultiStepForm";
 
 function Item() {
   const { id } = useParams();
-  const { getItemById, item } = Api();
+  const navigate = useNavigate();
+  const { getItemById, item, deleteItem } = Api();
   const user = JSON.parse(localStorage.getItem("user"));
   const [formOpen, setFormOpen] = useState(false);
   const [initialFormData, setInitialFormData] = useState(null);
@@ -33,7 +34,7 @@ function Item() {
   const handleEdit = () => {
     const formattedData = {
       ...item,
-      imageUrl: item.imageUrl, 
+      imageUrl: item.imageUrl,
       additional: {
         propertyType: item.propertyType,
         area: item.area,
@@ -51,9 +52,16 @@ function Item() {
     };
 
     setFormOpen(true);
-    setInitialFormData(formattedData); 
+    setInitialFormData(formattedData);
   };
-
+  const handleDelete = async () => {
+    try {
+      await deleteItem(id);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleFormClose = () => {
     setFormOpen(false);
   };
@@ -181,6 +189,19 @@ function Item() {
                 >
                   Редактировать
                 </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={handleDelete}
+                  sx={{
+                    borderRadius: "10px",
+                    textTransform: "none",
+                    fontSize: "16px",
+                    p: 2,
+                  }}
+                >
+                  Удалить
+                </Button>
               </Box>
             )}
           </Grid>
@@ -189,7 +210,7 @@ function Item() {
       <MultiStepForm
         open={formOpen}
         onClose={handleFormClose}
-        initialData={initialFormData} 
+        initialData={initialFormData}
       />
     </>
   );
