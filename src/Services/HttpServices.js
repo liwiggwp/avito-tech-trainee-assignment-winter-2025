@@ -33,6 +33,16 @@ const httpService = () => {
         throw error;
       }
     },
+    
+    put: async (url, data) => {
+      try {
+        const response = await http.put(url, data);
+        return response;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
   };
 };
 

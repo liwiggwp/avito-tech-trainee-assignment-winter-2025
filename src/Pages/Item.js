@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Container,
   Grid,
   Card,
   CardMedia,
-  CardContent,
   Typography,
   Button,
   Box,
@@ -14,10 +13,14 @@ import {
 import Header from "../Components/header/Header";
 import SubHeader from "../Components/header/SubHeader";
 import Api from "../Services/ApiServices";
+import MultiStepForm from "../Components/MultiStepForm";
 
 function Item() {
   const { id } = useParams();
   const { getItemById, item } = Api();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [formOpen, setFormOpen] = useState(false);
+  const [initialFormData, setInitialFormData] = useState(null);
 
   useEffect(() => {
     getItemById(id);
@@ -26,6 +29,34 @@ function Item() {
   if (!item) {
     return <Typography>пупупу</Typography>;
   }
+
+  const handleEdit = () => {
+    const formattedData = {
+      ...item,
+      imageUrl: item.imageUrl, 
+      additional: {
+        propertyType: item.propertyType,
+        area: item.area,
+        rooms: item.rooms,
+        price: item.price,
+        brand: item.brand,
+        model: item.model,
+        year: item.year,
+        mileage: item.mileage,
+        serviceType: item.serviceType,
+        experience: item.experience,
+        cost: item.cost,
+        workSchedule: item.workSchedule,
+      },
+    };
+
+    setFormOpen(true);
+    setInitialFormData(formattedData); 
+  };
+
+  const handleFormClose = () => {
+    setFormOpen(false);
+  };
 
   return (
     <>
@@ -135,9 +166,31 @@ function Item() {
               </Box>
               <Typography sx={{ color: "#0095FF" }}>Подписаться</Typography>
             </Box>
+            {user && user.email === item.userEmail && (
+              <Box marginTop={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEdit}
+                  sx={{
+                    borderRadius: "10px",
+                    textTransform: "none",
+                    fontSize: "16px",
+                    p: 2,
+                  }}
+                >
+                  Редактировать
+                </Button>
+              </Box>
+            )}
           </Grid>
         </Grid>
       </Container>
+      <MultiStepForm
+        open={formOpen}
+        onClose={handleFormClose}
+        initialData={initialFormData} 
+      />
     </>
   );
 }
