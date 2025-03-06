@@ -1,8 +1,10 @@
 import React from "react";
 import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import Api from "../../Services/ApiServices";
 
-const ItemList = ({ items }) => {
+const ItemList = () => {
+  const { items } = Api();
   return (
     <Grid container spacing={2} padding={2}>
       {items.map((item, index) => (
@@ -25,9 +27,7 @@ const ItemList = ({ items }) => {
                 <Typography variant="body1" fontWeight="bold">
                   {item.name}
                 </Typography>
-                <Typography variant="body2" >
-                  {item.location}
-                </Typography>
+                <Typography variant="body2">{item.location}</Typography>
                 <Typography
                   variant="body2"
                   color="textSecondary"

@@ -1,17 +1,14 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Header from "../Components/header/Header";
 import SubHeader from "../Components/header/SubHeader";
-import React, { useEffect, useState } from "react";
-import Api from "../Services/ApiServices";
-import ItemList from "../Components/card/ItemList";
 import { Container } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+import Api from "../Services/ApiServices";
 import RegisterForm from "../Components/auth/RegisterForm";
 import LoginForm from "../Components/auth/LoginForm";
 import MultiStepForm from "../Components/MultiStepForm";
-
-function Home() {
+function Layout(props) {
   const { token, getItems, items, logout } = Api();
-  const [filteredItems, setFilteredItems] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const [authOpen, setAuthOpen] = useState(false);
@@ -22,10 +19,6 @@ function Home() {
   useEffect(() => {
     getItems();
   }, []);
-
-  useEffect(() => {
-    setFilteredItems(items);
-  }, [items]);
 
   useEffect(() => {
     if (location.hash === "#login") {
@@ -44,13 +37,11 @@ function Home() {
     const filtered = items.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredItems(filtered);
     navigate("/list", { state: { filteredItems: filtered } });
   };
 
   const handleCategoryChange = (category) => {
     const filtered = items.filter((item) => item.type === category);
-    setFilteredItems(filtered);
     navigate("/list", { state: { filteredItems: filtered } });
   };
 
@@ -78,7 +69,7 @@ function Home() {
 
   const handleLoginSuccess = () => {
     setAuthOpen(false);
-    navigate(location.pathname); 
+    navigate(location.pathname);
   };
 
   const handleRegisterSuccess = () => {
@@ -106,7 +97,6 @@ function Home() {
       logout();
     }
   };
-
   return (
     <>
       <Header
@@ -119,10 +109,7 @@ function Home() {
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
       />
-      <Container maxWidth="lg">
-        <h1>Home</h1>
-        <ItemList items={filteredItems} />
-      </Container>
+      <Container maxWidth="lg"> {props.main}</Container>
       <LoginForm
         open={authOpen}
         onClose={handleAuthClose}
@@ -135,12 +122,8 @@ function Home() {
         onLoginOpen={handleAuthOpen}
         onRegisterSuccess={handleRegisterSuccess}
       />
-      <MultiStepForm
-        open={formOpen}
-        onClose={handleFormClose}
-      />
+      <MultiStepForm open={formOpen} onClose={handleFormClose} />
     </>
   );
 }
-
-export default Home;
+export default Layout;

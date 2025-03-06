@@ -10,8 +10,6 @@ import {
   Box,
   Rating,
 } from "@mui/material";
-import Header from "../Components/header/Header";
-import SubHeader from "../Components/header/SubHeader";
 import Api from "../Services/ApiServices";
 import MultiStepForm from "../Components/MultiStepForm";
 
@@ -68,8 +66,7 @@ function Item() {
 
   return (
     <>
-      <Header />
-      <SubHeader />
+      
       <Container maxWidth="lg">
         <Grid container spacing={2} padding={2}>
           <Grid item xs={12} md={6}>

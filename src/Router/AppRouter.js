@@ -1,19 +1,20 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import * as Router from "./RouteNames";
-import Home from "../Pages/Home";
 import Item from "../Pages/Item";
 import ItemListPage from "../Pages/ItemListPage";
+import Layout from "../Pages/Layout";
+import ItemList from "../Components/card/ItemList";
 
 function AppRouter() {
   return (
     <Routes>
-      <Route path={Router.HOME} element={<Home />} />
+      <Route path={Router.HOME} element={<Layout main={<ItemList />} />} />
       <Route
         path={Router.ITEM + Router.ID}
-        element={<Item />}
+        element={<Layout main={<Item />} />}
       />
-       <Route path={Router.LIST} element={<ItemListPage />} />
+      <Route path={Router.LIST} element={<ItemListPage />} />
     </Routes>
   );
 }
