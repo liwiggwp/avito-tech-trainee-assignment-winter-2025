@@ -13,25 +13,32 @@ function Layout(props) {
   const location = useLocation();
   const [formOpen, setFormOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [filteredItems, setFilteredItems] = useState(items);
 
   useEffect(() => {
     getItems();
   }, []);
 
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
   const handleSearchChange = (searchTerm) => {
     const filtered = items.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    navigate("/list", { state: { filteredItems: filtered } });
+    setFilteredItems(filtered);
+    navigate("/list");
   };
 
   const handleCategoryChange = (category) => {
     const filtered = items.filter((item) => item.type === category);
-    navigate("/list", { state: { filteredItems: filtered } });
+    setFilteredItems(filtered);
+    navigate("/list");
   };
 
   const handleFormOpen = () => {
-    if (token !== undefined) {
+    if (token) {
       setFormOpen(true);
       navigate("#create");
     } else {
@@ -52,7 +59,9 @@ function Layout(props) {
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
       />
-      <Container maxWidth="lg">{props.main}</Container>
+      <Container maxWidth="lg">
+        {React.cloneElement(props.main, { filteredItems })}
+      </Container>
       <AuthModal authOpen={authOpen} setAuthOpen={setAuthOpen} />
       <MultiStepForm open={formOpen} onClose={handleFormClose} />
     </>

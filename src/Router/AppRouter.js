@@ -14,7 +14,7 @@ function AppRouter() {
         path={Router.ITEM + Router.ID}
         element={<Layout main={<Item />} />}
       />
-      <Route path={Router.LIST} element={<ItemListPage />} />
+      <Route path={Router.LIST} element={<Layout main={<ItemListPage />} />} />
     </Routes>
   );
 }
