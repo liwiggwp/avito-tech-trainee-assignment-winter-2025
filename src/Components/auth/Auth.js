@@ -45,7 +45,7 @@ const Auth = ({ authOpen, setAuthOpen }) => {
 
   const handleLoginSuccess = () => {
     setAuthOpen(false);
-    navigate(location.pathname);
+    window.location.href = "/";
   };
 
   const handleRegisterSuccess = () => {
