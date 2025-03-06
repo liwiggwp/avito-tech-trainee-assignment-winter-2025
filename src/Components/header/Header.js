@@ -4,8 +4,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Button, Container, Menu, MenuItem } from "@mui/material";
+import Api from "../../Services/ApiServices";
 
-export default function Header({ onAuthOpen, onFormOpen, user, onLogout }) {
+export default function Header({ onAuthOpen, onFormOpen }) {
+  const { token, logout } = Api();
+  const user = JSON.parse(localStorage.getItem("user"));
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuOpen = (event) => {
@@ -14,6 +17,12 @@ export default function Header({ onAuthOpen, onFormOpen, user, onLogout }) {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    if (token !== undefined) {
+      logout();
+    }
   };
 
   return (
@@ -49,7 +58,7 @@ export default function Header({ onAuthOpen, onFormOpen, user, onLogout }) {
                     open={anchorEl}
                     onClose={handleMenuClose}
                   >
-                    <MenuItem onClick={onLogout}>Выйти</MenuItem>
+                    <MenuItem onClick={handleLogout}>Выйти</MenuItem>
                   </Menu>
                 </>
               ) : (
