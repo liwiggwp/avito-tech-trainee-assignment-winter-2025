@@ -72,7 +72,10 @@ export default function Header({ onAuthOpen, onFormOpen }) {
               )}
               <Button
                 variant="contained"
-                sx={{ borderRadius: "10px" }}
+                sx={{
+                  backgroundColor: "#0095FF",
+                  borderRadius: "10px",
+                }}
                 onClick={onFormOpen}
               >
                 Разместить объявление
