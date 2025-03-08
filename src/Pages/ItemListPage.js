@@ -29,7 +29,12 @@ function ItemListPage({ filteredItems = [] }) {
               count={Math.ceil(filteredItems.length / itemsPerPage)}
               page={page}
               onChange={handlePageChange}
-              color="primary"
+              sx={{
+                "& .Mui-selected": {
+                  backgroundColor: "#0095FF",
+                  color: "#fff",
+                },
+              }}
             />
           </Box>
         )}

@@ -59,7 +59,7 @@ function Layout(props) {
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg"sx={{ mt: 20 }}>
         {React.cloneElement(props.main, { filteredItems })}
       </Container>
       <AuthModal authOpen={authOpen} setAuthOpen={setAuthOpen} />

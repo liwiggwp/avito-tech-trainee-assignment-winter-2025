@@ -37,7 +37,7 @@ const ItemListCategory = ({ items }) => {
                 </Box>
                 <Box>
                   <Link to={`/item/${item.id}`} style={{ textDecoration: "none" }}>
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" sx={{ backgroundColor: "#0095FF" }}>
                       Открыть
                     </Button>
                   </Link>

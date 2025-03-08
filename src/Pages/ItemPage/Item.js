@@ -70,7 +70,7 @@ function Item() {
       <Container maxWidth="lg">
         <Grid container spacing={2} padding={2}>
           <Grid item xs={12} md={8}>
-            <Typography variant="h4" fontWeight="bold" sx={{ m: 1 }}>
+            <Typography variant="h4" fontWeight="bold" sx={{ mb: 1 }}>
               {item.name}
             </Typography>
             <Card>
@@ -99,7 +99,7 @@ function Item() {
             <Typography
               variant="h4"
               component="div"
-              sx={{ fontWeight: "bold", color: "#000", m: 1 }}
+              sx={{ fontWeight: "bold", color: "#000", mb: 1 }}
             >
               {item.price || item.cost || ""}
             </Typography>

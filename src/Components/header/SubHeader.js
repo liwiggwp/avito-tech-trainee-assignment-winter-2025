@@ -32,7 +32,7 @@ export default function SubHeader({ onSearchChange, onCategoryChange }) {
     handleClose();
   };
   return (
-    <Box sx={{ flexGrow: 1, mt: 8, boxShadow: 1, py: 1 }}>
+    <Box sx={{ flexGrow: 1, boxShadow: 1, py: 1, position: 'fixed', top: 64, width: '100%', zIndex: 1100, backgroundColor: 'white' }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ display: "flex", alignItems: "center" }}>

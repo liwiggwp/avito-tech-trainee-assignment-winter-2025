@@ -154,7 +154,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Тип недвижимости"
               name="propertyType"
-              value={formData.additional.propertyType || ""} 
+              value={formData.additional.propertyType || ""}
               onChange={handleChange}
               required
             >
@@ -169,7 +169,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Площадь"
               name="area"
-              value={formData.additional.area || ""} 
+              value={formData.additional.area || ""}
               onChange={handleNumericInput}
               required
               inputProps={{
@@ -182,7 +182,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Количество комнат"
               name="rooms"
-              value={formData.additional.rooms || ""} 
+              value={formData.additional.rooms || ""}
               onChange={handleNumericInput}
               required
               inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
@@ -192,7 +192,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Цена"
               name="price"
-              value={formData.additional.price || ""} 
+              value={formData.additional.price || ""}
               onChange={handleNumericInput}
               required
               inputProps={{
@@ -211,7 +211,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Марка"
               name="brand"
-              value={formData.additional.brand || ""} 
+              value={formData.additional.brand || ""}
               onChange={handleChange}
               required
             >
@@ -226,7 +226,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Модель"
               name="model"
-              value={formData.additional.model || ""} 
+              value={formData.additional.model || ""}
               onChange={handleChange}
               required
             />
@@ -235,7 +235,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Год выпуска"
               name="year"
-              value={formData.additional.year || ""} 
+              value={formData.additional.year || ""}
               onChange={handleNumericInput}
               required
               inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
@@ -245,7 +245,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Пробег (км)"
               name="mileage"
-              value={formData.additional.mileage || ""} 
+              value={formData.additional.mileage || ""}
               onChange={handleNumericInput}
               inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             />
@@ -260,7 +260,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Тип услуги"
               name="serviceType"
-              value={formData.additional.serviceType || ""} 
+              value={formData.additional.serviceType || ""}
               onChange={handleChange}
               required
             >
@@ -275,7 +275,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Опыт работы (лет)"
               name="experience"
-              value={formData.additional.experience || ""} 
+              value={formData.additional.experience || ""}
               onChange={handleNumericInput}
               required
               inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
@@ -285,7 +285,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="Стоимость"
               name="cost"
-              value={formData.additional.cost || ""} 
+              value={formData.additional.cost || ""}
               onChange={handleNumericInput}
               required
               inputProps={{
@@ -298,7 +298,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
               margin="dense"
               label="График работы"
               name="workSchedule"
-              value={formData.additional.workSchedule || ""} 
+              value={formData.additional.workSchedule || ""}
               onChange={handleChange}
             />
           </>
@@ -383,7 +383,11 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
             Далее
           </Button>
         ) : (
-          <Button variant="contained" color="secondary" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#0095FF" }}
+            onClick={handleSubmit}
+          >
             Опубликовать
           </Button>
         )}
