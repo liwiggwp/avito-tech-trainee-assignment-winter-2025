@@ -40,7 +40,7 @@ function Layout(props) {
   const handleFormOpen = () => {
     if (token) {
       setFormOpen(true);
-      navigate("#create");
+      navigate("#form");
     } else {
       setAuthOpen(true);
       navigate("#login");
