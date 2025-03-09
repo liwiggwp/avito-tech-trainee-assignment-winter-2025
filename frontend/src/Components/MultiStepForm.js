@@ -12,6 +12,7 @@ import {
   StepLabel,
 } from "@mui/material";
 import Api from "../Services/ApiServices";
+import { useNavigate } from "react-router-dom";
 
 const categories = ["Недвижимость", "Авто", "Услуги"];
 const propertyTypes = ["Квартира", "Дом", "Коттедж"];
@@ -29,6 +30,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
     additional: {},
   });
   const { postItem, getUserRequest, updateItem } = Api();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -137,6 +139,7 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
       });
       setActiveStep(0);
       onClose();
+      navigate("/list");
       window.location.reload();
     } catch (error) {
       console.error(error);
