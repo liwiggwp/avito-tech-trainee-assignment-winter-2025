@@ -310,7 +310,9 @@ const MultiStepForm = ({ open, onClose, initialData }) => {
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Разместить объявление</DialogTitle>
+      <DialogTitle>
+        {initialData ? "Редактировать объявление" : "Разместить объявление"}
+      </DialogTitle>
       <DialogContent>
         <Stepper activeStep={activeStep} alternativeLabel>
           <Step>

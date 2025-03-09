@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { initialUsers } = require("./data");
 
 const router = express.Router();
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY || "supersecret";
 
 // Генерация токена
 const generateToken = (user) => {
